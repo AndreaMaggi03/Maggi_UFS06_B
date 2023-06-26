@@ -10,17 +10,18 @@ public class Cantina {
     private static final Gson gson = new Gson();
 
     private Cantina() {
-        listaVini.add(new Vini(13,"Dom Perignon Vintage Moet e Chandon 2008",300.0, "white"));
-        listaVini.add(new Vini(19,"Pignoli Radikon Radikon 2009",45.0, "red"));
-        listaVini.add(new Vini(172,"Pinot Nero Elena Walch Elena Walch 2018",200.0,"red"));
+        listaVini.add(new Vini(13, "Dom Perignon Vintage Moet e Chandon 2008", 300.0, "white"));
+        listaVini.add(new Vini(19, "Pignoli Radikon Radikon 2009", 45.0, "red"));
+        listaVini.add(new Vini(172, "Pinot Nero Elena Walch Elena Walch 2018", 200.0, "red"));
     }
+
     public static Cantina getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Cantina();
         }
-
         return INSTANCE;
     }
+
     public void add(Vini vini) {
         listaVini.add(vini);
     }
@@ -47,6 +48,7 @@ public class Cantina {
         }
         return jsonVino;
     }
+
     private String SortedViniRossi() {
         List<Vini> filteredList = new ArrayList<>();
 
@@ -57,6 +59,7 @@ public class Cantina {
         }
         return gson.toJson(filteredList);
     }
+
     private String SortedViniBianchi() {
         List<Vini> filteredList = new ArrayList<>();
 
@@ -67,6 +70,7 @@ public class Cantina {
         }
         return gson.toJson(filteredList);
     }
+
     private String sorted_by_name() {
         String jsonVino = "";
         List<Vini> sortedList = new ArrayList<>(listaVini);
@@ -84,6 +88,7 @@ public class Cantina {
         }
         return jsonVino;
     }
+
     String cantinaActions(String command) {
         return switch (command.toLowerCase()) {
             case "all" -> toJSON();
