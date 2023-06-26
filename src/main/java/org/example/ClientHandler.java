@@ -32,7 +32,7 @@ public class ClientHandler implements Runnable {
         try {
             try {
                 while ((s = in.readLine()) != null) {
-                    ClientManager.getInstance().reply(Cantina.getInstance().garageActions(s),this);
+                    ClientManager.getInstance().reply(Cantina.getInstance().cantinaActions(s),this);
                 }
             } catch (SocketException e) {
                 InetAddress address = clientSocket.getInetAddress();

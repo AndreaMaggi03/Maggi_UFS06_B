@@ -6,13 +6,13 @@ import java.util.*;
 
 public class Cantina {
     private static Cantina INSTANCE;
-    List<Vini> ListaVini = new ArrayList<>();
+    List<Vini> listaVini = new ArrayList<>();
     private static final Gson gson = new Gson();
 
     private Cantina() {
-        ListaVini.add(new Vini(13,"Dom Perignon Vintage Moet & Chandon 2008",225.94, "white"));
-        ListaVini.add(new Vini(14,"Pignoli Radikon Radikon 2009",133.0, "red"));
-        ListaVini.add(new Vini(124,"Pinot Nero Elena Walch Elena Walch 2018",43.0,"red"));
+        listaVini.add(new Vini(13,"Dom Perignon Vintage Moet & Chandon 2008",300.0, "white"));
+        listaVini.add(new Vini(19,"Pignoli Radikon Radikon 2009",45.0, "red"));
+        listaVini.add(new Vini(172,"Pinot Nero Elena Walch Elena Walch 2018",200.0,"red"));
     }
 
     public static Cantina getInstance() {
@@ -23,34 +23,51 @@ public class Cantina {
         return INSTANCE;
     }
 
-    public void add(Vini vino) {
-        ListaVini.add(vino);
+    public void add(Vini vini) {
+        listaVini.add(vini);
     }
 
     private String toJSON() {
-        return gson.toJson( ListaVini);
+        return gson.toJson(listaVini);
     }
 
-    private List<String> getViniBianchi() {
-        List<String> jsonVini = new ArrayList<>();
+    private String sorted_by_price() {
+        String jsonVino = "";
+        List<Vini> sortedList = new ArrayList<>(listaVini);
 
-        for (Vini vino : ListaVini) {
-            if (vino.getTipo().equals("white")) {
-                String jsonVino = gson.toJson(vino);
-                jsonVini.add(jsonVino);
+        sortedList.sort(Comparator.comparingDouble(Vini::getPrezzo).reversed());
+
+        if (!sortedList.isEmpty()) {
+            Vini car = sortedList.get(0);
+            double maxPrice = car.getPrezzo();
+            jsonVino = gson.toJson(car);
+
+            for (int i = 1; i < sortedList.size(); i++) {
+                car = sortedList.get(i);
+                jsonVino += gson.toJson(car);
+            }
+        }
+        return jsonVino;
+    }
+
+    private String filteredSorted() {
+        List<Vini> filteredList = new ArrayList<>();
+
+        for (Vini vino : listaVini) {
+            if (vino != null && vino.getTipo() != null && vino.getTipo().equals("rosso")) {
+                filteredList.add(vino);
             }
         }
 
-        return jsonVini;
+        return gson.toJson(filteredList);
     }
 
 
-    String garageActions(String command) {
+    String cantinaActions(String command) {
         return switch (command.toLowerCase()) {
-            case "red" -> toJSON();
-            case "white" -> getViniBianchi();
-            case "sorted_by_name" -> allSorted();
-            case "sorted_by_price" ->
+            case "all" -> toJSON();
+            case "sorted_by_price" -> sorted_by_price();
+             case "all_sorted" -> filteredSorted();
             default -> "Comando Errato";
         };
     }
