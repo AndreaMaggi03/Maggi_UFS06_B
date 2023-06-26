@@ -25,7 +25,7 @@ public class Vini {
     }
 
     public void setTipo(String tipo) {
-        this.nome = tipo;
+        this.tipo = tipo;
     }
 
     public double getPrezzo() {
@@ -39,7 +39,7 @@ public class Vini {
     public String getNome() {
         return nome;
     }
-    public void setNome(String tipo) {
-        this.nome = tipo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
