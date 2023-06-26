@@ -10,7 +10,7 @@ import java.net.SocketException;
 
 public class ClientHandler implements Runnable {
     private static Socket clientSocket = null;
-    private PrintWriter out = null; // allocate to write answer to client.
+    private PrintWriter out = null;
 
     public ClientHandler(Socket clientSocket) {
         ClientHandler.clientSocket = clientSocket;

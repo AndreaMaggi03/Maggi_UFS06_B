@@ -10,7 +10,6 @@ public final class ClientManager {
 
     private ClientManager() {
     }
-
     public static ClientManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ClientManager();
@@ -18,24 +17,18 @@ public final class ClientManager {
 
         return INSTANCE;
     }
-
     void add(ClientHandler clientHandler){
         clientList.add(clientHandler);
     }
-
     void remove(ClientHandler clientHandler){
         clientList.remove(clientHandler);
     }
-
     int nOfClients(){
         return clientList.size();
     }
-
     void reply(String s, ClientHandler sourceClient){
         sourceClient.write(s);
     }
-
-
 }
 
 
