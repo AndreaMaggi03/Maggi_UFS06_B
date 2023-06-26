@@ -4,7 +4,8 @@ Maggi Andrea
 
 Traccia B 
 
-ip: 127.0.0.1 
+ip: 127.0.0.1 (default)
+mioIp: 172.16.151.122
 porta: 1234
 
 COMANDI: 
